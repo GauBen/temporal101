@@ -7,7 +7,7 @@
     "@temporalio/activity": "^1.8.1",
     "@temporalio/client": "^1.8.1",
     "@temporalio/common": "^1.8.1",
-    "@temporalio/worker": "^1.8.1",
+    "@temporalio/worker": "patch:@temporalio/worker@npm%3A1.8.1#~/.yarn/patches/@temporalio-worker-npm-1.8.1-a29905578d.patch",
     "@temporalio/workflow": "^1.8.1",
     "fets": "^0.4.9",
     "nodemailer": "^6.9.4",
@@ -21,6 +21,7 @@
     "tsx": "^3.12.7"
   },
   "scripts": {
-    "dev": "tsx --watch -r dotenv/config src"
+    "dev": "tsx --watch -r dotenv/config src",
+    "dev:worker": "tsx --watch -r dotenv/config src/worker.ts"
   }
 }

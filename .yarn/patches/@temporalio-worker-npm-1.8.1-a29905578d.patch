@@ -1,0 +1,12 @@
+diff --git a/lib/workflow/bundler.js b/lib/workflow/bundler.js
+index fe94b3610d45ef97701ab52dc3571bcd6b9cd4d8..83a30422f69d78dd121b4e77ed5380fea77832b7 100644
+--- a/lib/workflow/bundler.js
++++ b/lib/workflow/bundler.js
+@@ -180,6 +180,7 @@ exports.importInterceptors = function importInterceptors() {
+                 // https://webpack.js.org/configuration/resolve/#resolvemodules
+                 modules: [node_path_1.default.resolve(__dirname, 'module-overrides'), 'node_modules'],
+                 extensions: ['.ts', '.js'],
++                extensionAlias: { ".js": [".ts", ".js"] },
+                 alias: {
+                     __temporal_custom_payload_converter$: this.payloadConverterPath ?? false,
+                     __temporal_custom_failure_converter$: this.failureConverterPath ?? false,

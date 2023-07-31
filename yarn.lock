@@ -555,15 +555,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@temporal101/activities@workspace:^, @temporal101/activities@workspace:packages/activities":
-  version: 0.0.0-use.local
-  resolution: "@temporal101/activities@workspace:packages/activities"
-  dependencies:
-    "@prisma/client": "npm:^5.0.0"
-    "@types/nodemailer": "npm:^6.4.9"
-  languageName: unknown
-  linkType: soft
-
 "@temporal101/app@workspace:packages/app":
   version: 0.0.0-use.local
   resolution: "@temporal101/app@workspace:packages/app"
@@ -572,7 +563,7 @@ __metadata:
     "@temporalio/activity": "npm:^1.8.1"
     "@temporalio/client": "npm:^1.8.1"
     "@temporalio/common": "npm:^1.8.1"
-    "@temporalio/worker": "npm:^1.8.1"
+    "@temporalio/worker": "patch:@temporalio/worker@npm%3A1.8.1#~/.yarn/patches/@temporalio-worker-npm-1.8.1-a29905578d.patch"
     "@temporalio/workflow": "npm:^1.8.1"
     "@types/node": "npm:^20.4.5"
     "@types/nodemailer": "npm:^6.4.9"
@@ -582,30 +573,6 @@ __metadata:
     prisma: "npm:^5.0.0"
     tsx: "npm:^3.12.7"
     zod: "npm:^3.21.4"
-  languageName: unknown
-  linkType: soft
-
-"@temporal101/worker@workspace:packages/worker":
-  version: 0.0.0-use.local
-  resolution: "@temporal101/worker@workspace:packages/worker"
-  dependencies:
-    "@prisma/client": "npm:^5.0.0"
-    "@temporal101/activities": "workspace:^"
-    "@temporal101/workflows": "workspace:^"
-    "@temporalio/worker": "npm:^1.8.1"
-    "@types/node": "npm:^20.4.5"
-    dotenv: "npm:^16.3.1"
-    nodemailer: "npm:^6.9.4"
-    tsx: "npm:^3.12.7"
-  languageName: unknown
-  linkType: soft
-
-"@temporal101/workflows@workspace:^, @temporal101/workflows@workspace:packages/workflows":
-  version: 0.0.0-use.local
-  resolution: "@temporal101/workflows@workspace:packages/workflows"
-  dependencies:
-    "@temporal101/activities": "workspace:^"
-    "@temporalio/workflow": "npm:^1.8.1"
   languageName: unknown
   linkType: soft
 
@@ -670,7 +637,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@temporalio/worker@npm:^1.8.1":
+"@temporalio/worker@npm:1.8.1":
   version: 1.8.1
   resolution: "@temporalio/worker@npm:1.8.1"
   dependencies:
@@ -693,6 +660,32 @@ __metadata:
     unionfs: "npm:^4.5.1"
     webpack: "npm:^5.75.0"
   checksum: f3e3f0b3555c094f79ac98bd682fc60410d711790c8f1797d8aa354e3922233f973e82c6b22116ad15c4e707dabaa72cc3534780fce332e272383d1cc086e779
+  languageName: node
+  linkType: hard
+
+"@temporalio/worker@patch:@temporalio/worker@npm%3A1.8.1#~/.yarn/patches/@temporalio-worker-npm-1.8.1-a29905578d.patch":
+  version: 1.8.1
+  resolution: "@temporalio/worker@patch:@temporalio/worker@npm%3A1.8.1#~/.yarn/patches/@temporalio-worker-npm-1.8.1-a29905578d.patch::version=1.8.1&hash=cec9b0"
+  dependencies:
+    "@opentelemetry/api": "npm:^1.4.1"
+    "@swc/core": "npm:^1.2.204"
+    "@temporalio/activity": "npm:1.8.1"
+    "@temporalio/client": "npm:1.8.1"
+    "@temporalio/common": "npm:1.8.1"
+    "@temporalio/core-bridge": "npm:1.8.1"
+    "@temporalio/proto": "npm:1.8.1"
+    "@temporalio/workflow": "npm:1.8.1"
+    abort-controller: "npm:^3.0.0"
+    cargo-cp-artifact: "npm:^0.1.6"
+    heap-js: "npm:^2.2.0"
+    memfs: "npm:^3.4.6"
+    rxjs: "npm:^7.5.5"
+    source-map: "npm:^0.7.4"
+    source-map-loader: "npm:^4.0.0"
+    swc-loader: "npm:^0.2.3"
+    unionfs: "npm:^4.5.1"
+    webpack: "npm:^5.75.0"
+  checksum: 943cb91c08722e5197cf2758b2f077d37f7265f762ebe3fd7579914a90a672d50206011552b6f49852c4b635405b5b06691269bced5ace8310b1101734028c81
   languageName: node
   linkType: hard
 

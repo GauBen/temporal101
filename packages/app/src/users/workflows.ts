@@ -1,9 +1,9 @@
-import { condition, proxyActivities, sleep } from "@temporalio/workflow";
-import type { Activities } from "@temporal101/activities";
+import { proxyActivities, sleep } from "@temporalio/workflow";
+import type * as activities from "./activities.js";
 
-const { sendConfirmationEmail, isEmailConfirmed } = proxyActivities<Activities>(
-  { startToCloseTimeout: "1 minute" }
-);
+const { sendConfirmationEmail, isEmailConfirmed } = proxyActivities<
+  typeof activities
+>({ startToCloseTimeout: "1 minute" });
 
 export const registerUser = async (email: string) => {
   await sendConfirmationEmail(email);
