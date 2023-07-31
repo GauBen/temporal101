@@ -1,8 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { registerUser } from "@temporal101/workflows";
 import { createRouter, Response } from "fets";
 import { createServer } from "node:http";
 import { z } from "zod";
-import { mailer } from "./mailer.js";
+import { temporal } from "./temporal.js";
 
 const prisma = new PrismaClient();
 
@@ -19,18 +20,22 @@ const router = createRouter()
       const email = request.parsedUrl.searchParams.get("email");
 
       // Create a user account
-      await prisma.user.create({ data: { email } });
+      const user = await prisma.user.upsert({
+        where: { email },
+        create: { email },
+        update: {},
+      });
+
+      if (user.confirmed)
+        return Response.json({ welcome: "You're already registered!" });
 
       // Send a confirmation email
-      const url = new URL("http://localhost:3000/confirm");
-      url.searchParams.set("email", email);
-      await mailer.sendMail({
-        from: "support@example.com",
-        to: email,
-        subject: "Welcome!",
-        html: /* HTML */ `<h1>Welcome!</h1>
-          <p><a href="${url}">Confirm your email</a></p>`,
+      temporal.workflow.start(registerUser, {
+        args: [email],
+        taskQueue: "app",
+        workflowId: email,
       });
+
       return Response.json({ welcome: "Check your emails!" });
     },
   })

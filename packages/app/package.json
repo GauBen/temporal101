@@ -4,6 +4,11 @@
   "type": "module",
   "dependencies": {
     "@prisma/client": "^5.0.0",
+    "@temporalio/activity": "^1.8.1",
+    "@temporalio/client": "^1.8.1",
+    "@temporalio/common": "^1.8.1",
+    "@temporalio/worker": "^1.8.1",
+    "@temporalio/workflow": "^1.8.1",
     "fets": "^0.4.9",
     "nodemailer": "^6.9.4",
     "zod": "^3.21.4"

@@ -1,0 +1,20 @@
+{
+  "name": "@temporal101/worker",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "^5.0.0",
+    "@temporal101/activities": "workspace:^",
+    "@temporal101/workflows": "workspace:^",
+    "@temporalio/worker": "^1.8.1",
+    "nodemailer": "^6.9.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.5",
+    "dotenv": "^16.3.1",
+    "tsx": "^3.12.7"
+  },
+  "scripts": {
+    "dev": "tsx -r dotenv/config src"
+  }
+}
