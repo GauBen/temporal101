@@ -26,7 +26,7 @@ export default createRouter({ base: "/users" })
         return Response.json({ welcome: "You're already registered!" });
 
       // Send a confirmation email
-      temporal.workflow.start(registerUser, {
+      await temporal.workflow.start(registerUser, {
         args: [email],
         taskQueue: "app",
         workflowId: email,

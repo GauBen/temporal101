@@ -6,5 +6,6 @@
 !.yarn/versions
 !.yarn/cache
 
+__pycache__/
 build/
 node_modules/
