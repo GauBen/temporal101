@@ -13,7 +13,9 @@ export default createRouter({ base: "/rpc" }).route({
   async handler(request) {
     const name = request.parsedUrl.searchParams.get("name");
 
-    const handle = await temporal.workflow.start("SayHello", {
+    const handle = await temporal.workflow.start<
+      (name: string) => Promise<string>
+    >("SayHello", {
       args: [name],
       taskQueue: "hello-task-queue",
       workflowId: `SayHello-${name}`,
