@@ -2,5 +2,83 @@ services:
   mailhog:
     image: mailhog/mailhog
     ports:
-      - "1025:1025"
-      - "8025:8025"
+      - 1025:1025
+      - 8025:8025
+
+  postgresql:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: "superuser"
+    volumes:
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+      - /var/lib/postgresql/data
+
+  temporal:
+    image: temporalio/auto-setup
+    depends_on:
+      - postgresql
+    ports:
+      - 7233:7233
+    environment:
+      - DB=postgresql
+      - DB_PORT=5432
+      - POSTGRES_USER=temporal
+      - POSTGRES_PWD=temporal
+      - POSTGRES_SEEDS=postgresql
+
+  temporal-admin-tools:
+    image: temporalio/admin-tools
+    depends_on:
+      - temporal
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+      - TEMPORAL_CLI_ADDRESS=temporal:7233
+    stdin_open: true
+    tty: true
+
+  temporal-ui:
+    image: temporalio/ui
+    depends_on:
+      - temporal
+    ports:
+      - 8233:8080
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+
+  db-migrations:
+    build: .
+    entrypoint:
+      ["yarn", "workspace", "@temporal101/app", "prisma", "migrate", "deploy"]
+    depends_on:
+      - postgresql
+    environment:
+      - DATABASE_URL=postgresql://app:app@postgresql:5432/app
+
+  # Production containers
+  app:
+    build: .
+    entrypoint: ["yarn", "workspace", "@temporal101/app", "start"]
+    depends_on:
+      - temporal
+    ports:
+      - 3000:3000
+    environment:
+      - DATABASE_URL=postgresql://app:app@postgresql:5432/app
+      - SMTP_URL=smtp://mailhog:1025
+      - TEMPORAL_URL=temporal:7233
+    profiles:
+      - prod
+
+  worker:
+    build: .
+    entrypoint: ["yarn", "workspace", "@temporal101/app", "start:worker"]
+    depends_on:
+      - temporal
+    environment:
+      - DATABASE_URL=postgresql://app:app@postgresql:5432/app
+      - SMTP_URL=smtp://mailhog:1025
+      - TEMPORAL_URL=temporal:7233
+    profiles:
+      - prod

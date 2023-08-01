@@ -6,6 +6,5 @@
 !.yarn/versions
 !.yarn/cache
 
+build/
 node_modules/
-
-dev.db*

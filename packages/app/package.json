@@ -18,10 +18,14 @@
     "@types/nodemailer": "^6.4.9",
     "dotenv": "^16.3.1",
     "prisma": "^5.0.0",
-    "tsx": "^3.12.7"
+    "tsx": "^3.12.7",
+    "typescript": "^5.1.6"
   },
   "scripts": {
-    "dev": "tsx --watch -r dotenv/config src",
-    "dev:worker": "tsx --watch -r dotenv/config src/worker.ts"
+    "build": "prisma generate && tsc",
+    "dev": "tsx --watch -r dotenv/config src/index.ts",
+    "dev:worker": "tsx --watch -r dotenv/config src/worker.ts",
+    "start": "node build/index.js",
+    "start:worker": "node build/worker.js"
   }
 }
